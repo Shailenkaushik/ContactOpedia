@@ -5,7 +5,10 @@ export default function Contact(props) {
         console.log("Inside handleToggle")
         props.Toggle(props.contact.id);
         // console.log(props.contact.id)
-    }
+    };
+    const handleRemove=()=>{
+        props.RemoveContact(props.contact.id);
+    };
   return (
     <div
        className='row p-md-2 nb-2'
@@ -41,7 +44,7 @@ export default function Contact(props) {
                 <button className='btn btn-primary btn-sm m-1'>
                     <i class="bi bi-pencil-square" style={{fontSize:"1rem"}}></i>
                 </button>
-                <button className='btn btn-danger btn-sm m-1'>
+                <button onClick={handleRemove} className='btn btn-danger btn-sm m-1'>
                     <i class="bi bi-trash-fill" style={{fontSize:"1rem"}}></i>
                 </button>
             </div>

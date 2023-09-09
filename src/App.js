@@ -72,19 +72,37 @@ function App() {
         return contact;
       }
     });
-
+   
     setArr(updatedArr);
   };
+  const RemoveAll=()=>{
+    var dummy=arr;
+    dummy.length=0;
+    setArr([]);
+};
+   const RandomContact=(newContact)=>{
+    const newFinalContact = {
+      ...newContact,
+      id: arr.length + 1, // Increment the id for the new contact
+      isFavorite: false,
+    };
+    setArr([...arr, newFinalContact]);
+   };
+const RemoveContact=(Id)=>{
+
+  const newArray = arr.filter(item => item.id !== Id);
+  setArr(newArray);
+}
   return (
     <>
       <Header></Header>
       <div className='container' style={{ minHeight: "85vh" }}>
         <div className='row py-3'>
-          <div className='col-4 offset-2'>
-            <AddRandomContact array={arr}></AddRandomContact>
+          <div className='col-4 offset-2 row '>
+            <AddRandomContact array={arr} RandomContact={RandomContact}></AddRandomContact>
           </div>
-          <div className='col-4 '>
-            <RemoveAllContacts array={arr}></RemoveAllContacts>
+          <div className='col-4 row'>
+            <RemoveAllContacts array={arr} RemoveAll={RemoveAll} ></RemoveAllContacts>
           </div>
           <div className='row py-2 '>
             <div className='col-8 offset-2 row'>
@@ -93,12 +111,12 @@ function App() {
           </div>
           <div className='row py-2 '>
             <div className='col-8 offset-2 row'>
-              <FavoriteContacts array={arr.filter(a => a.isFavorite === true)} Toggle={Toggle} />
+              <FavoriteContacts array={arr.filter(a => a.isFavorite === true)} Toggle={Toggle} RemoveContact={RemoveContact} />
             </div>
           </div>
           <div className='row py-2 '>
             <div className='col-8 offset-2 row'>
-              <GeneralContact array={arr.filter(a => a.isFavorite === false)} Toggle={Toggle} />
+              <GeneralContact array={arr.filter(a => a.isFavorite === false)} Toggle={Toggle}RemoveContact={RemoveContact}/>
             </div>
           </div>
         </div>
